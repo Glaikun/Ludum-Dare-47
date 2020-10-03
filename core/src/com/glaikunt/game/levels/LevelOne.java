@@ -2,6 +2,7 @@ package com.glaikunt.game.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.utils.Align;
 import com.glaikunt.application.ApplicationResources;
 import com.glaikunt.application.TickTimer;
 import com.glaikunt.application.cache.FontCache;
+import com.glaikunt.application.cache.TextureCache;
 import com.glaikunt.game.phase.Phase;
 import com.glaikunt.game.phase.PhaseOne;
 import com.glaikunt.game.player.PlayerActor;
@@ -48,10 +50,11 @@ public class LevelOne extends Actor {
 
     private void setCurrentPhase() {
         if (currentPhase == 0) {
-            this.activePhase = new PhaseOne(applicationResources, player, water, ux, 1);
-            ux.addActor(activePhase);
+
 
             this.water = new WaterActor(applicationResources);
+            this.activePhase = new PhaseOne(applicationResources, player, water, ux, 1);
+            this.ux.addActor(activePhase);
             this.ux.addActor(water);
         }
     }

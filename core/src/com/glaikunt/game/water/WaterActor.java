@@ -63,4 +63,24 @@ public class WaterActor extends Actor {
     public void setStartRemovingWater(boolean startRemovingWater) {
         this.startRemovingWater = startRemovingWater;
     }
+
+    @Override
+    public float getX() {
+        return position.x;
+    }
+
+    @Override
+    public float getY() {
+        return position.y;
+    }
+
+    @Override
+    public float getWidth() {
+        return waterAnimation.getCurrentFrame().getRegionWidth();
+    }
+
+    @Override
+    public float getHeight() {
+        return waterAnimation.getCurrentFrame().getRegionHeight();
+    }
 }

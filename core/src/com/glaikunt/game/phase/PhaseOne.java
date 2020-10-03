@@ -2,11 +2,14 @@ package com.glaikunt.game.phase;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Align;
@@ -27,6 +30,7 @@ import static com.glaikunt.application.cache.TiledCache.SUFFIX_TMX;
 public class PhaseOne extends Phase {
 
     private ApplicationResources applicationResources;
+    private TiledMapRenderer tiledMapRenderer;
 
     private PositionComponent position;
 
@@ -43,6 +47,7 @@ public class PhaseOne extends Phase {
 
         this.applicationResources = applicationResources;
         TiledMap tiled = applicationResources.getCacheRetriever().getTiledCache().getTiledMapCache(LEVEL_ + currentLevel + SUFFIX_TMX);
+        this.tiledMapRenderer = new OrthogonalTiledMapRenderer(tiled);
         TiledMapTileLayer speechLayer = (TiledMapTileLayer) tiled.getLayers().get("PhaseOne");
         for (int y = speechLayer.getHeight(); y >= 0; y--) {
             float yPos = (y * speechLayer.getTileHeight());
@@ -74,12 +79,15 @@ public class PhaseOne extends Phase {
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        futureFont.draw(batch, word, position.x, position.y);
+        futureFont.draw(batch, word, position.x, (water.getY()+water.getHeight())-(50 + (word.height*2)));
+        tiledMapRenderer.render();
 
     }
 
     @Override
     public void act(float delta) {
+
+        tiledMapRenderer.setView((OrthographicCamera) uxStage.getCamera());
 
         boolean isSpeechCollidingPlayer = false;
         if (winningSpeech.isPlayerOnSpeechBlock()) {

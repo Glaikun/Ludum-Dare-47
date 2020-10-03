@@ -33,8 +33,8 @@ public class BlockActor extends Actor {
     @Override
     public void drawDebug(ShapeRenderer shapes) {
 
-        shapes.setColor(Color.BLUE);
-        shapes.rect(position.x, position.y, size.x, size.y);
+//        shapes.setColor(Color.BLUE);
+//        shapes.rect(position.x, position.y, size.x, size.y);
     }
 
 
