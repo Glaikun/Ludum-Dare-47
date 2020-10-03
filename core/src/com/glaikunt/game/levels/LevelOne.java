@@ -54,8 +54,6 @@ public class LevelOne extends Actor {
             this.water = new WaterActor(applicationResources);
             this.ux.addActor(water);
         }
-
-
     }
 
     @Override

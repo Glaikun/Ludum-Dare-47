@@ -5,9 +5,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.glaikunt.application.cache.TextureCache;
+import com.glaikunt.ecs.components.AnimationComponent;
 import com.glaikunt.ecs.components.PlayerComponent;
 import com.glaikunt.ecs.components.PositionComponent;
 import com.glaikunt.ecs.components.SizeComponent;
@@ -18,6 +22,7 @@ public class PlayerActor extends Actor implements InputProcessor {
 
     private ApplicationResources applicationResources;
     private Entity playerEntity;
+    private AnimationComponent playerAnimation;
 
     private PlayerComponent player;
     private PositionComponent position;
@@ -31,6 +36,9 @@ public class PlayerActor extends Actor implements InputProcessor {
         this.applicationResources = applicationResources;
         this.playerEntity = new Entity();
 
+        this.playerAnimation = new AnimationComponent(applicationResources.getCacheRetriever().geTextureCache(TextureCache.PLAYER), 3, 1);
+        this.playerAnimation.setPlaying(false);
+        this.playerAnimation.setPlayMode(Animation.PlayMode.REVERSED);
         this.position = new PositionComponent(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
         this.size = new SizeComponent(32, 48);
         this.velocity = new VelocityComponent();
@@ -42,6 +50,7 @@ public class PlayerActor extends Actor implements InputProcessor {
         this.playerEntity.add(velocity);
         this.playerEntity.add(size);
         this.playerEntity.add(player);
+        this.playerEntity.add(playerAnimation);
         this.applicationResources.getEngine().addEntity(playerEntity);
     }
 
@@ -50,9 +59,32 @@ public class PlayerActor extends Actor implements InputProcessor {
 
         if (left) {
 
+            if (playerAnimation.isAnimationFinished()) {
+
+                if (!playerAnimation.isxFlip()) {
+                    playerAnimation.setxFlip(true);
+                }
+                if (!this.playerAnimation.isPlaying()) {
+                    playerAnimation.setPlaying(true);
+                }
+
+                playerAnimation.setPlayMode(Animation.PlayMode.REVERSED);
+            }
+
             velocity.x = Math.min(Math.max(velocity.x + (5f * delta), 0), 7.5f);
             position.x -= velocity.x;
         } else if (right) {
+
+            if (playerAnimation.isxFlip()) {
+                playerAnimation.setxFlip(false);
+            }
+            if (!this.playerAnimation.isPlaying()) {
+                playerAnimation.setPlaying(true);
+            }
+
+            if (playerAnimation.isAnimationFinished()) {
+                playerAnimation.setPlayMode(Animation.PlayMode.REVERSED);
+            }
 
             velocity.x = Math.min(Math.max(velocity.x + (5f * delta), 0), 7.5f);
             position.x += velocity.x;
@@ -96,11 +128,21 @@ public class PlayerActor extends Actor implements InputProcessor {
     }
 
     @Override
+    public void draw(Batch batch, float parentAlpha) {
+
+        batch.draw(playerAnimation.getCurrentFrame().getTexture(), position.x, position.y,
+                playerAnimation.getCurrentFrame().getRegionWidth(), playerAnimation.getCurrentFrame().getRegionHeight(),
+                playerAnimation.getCurrentFrame().getRegionX(), playerAnimation.getCurrentFrame().getRegionY(),
+                playerAnimation.getCurrentFrame().getRegionWidth(), playerAnimation.getCurrentFrame().getRegionHeight(),
+                playerEntity.getComponent(AnimationComponent.class).isxFlip(), playerEntity.getComponent(AnimationComponent.class).isyFlip());
+    }
+
+    @Override
     public void drawDebug(ShapeRenderer shapes) {
 
-        shapes.set(ShapeRenderer.ShapeType.Filled);
-        shapes.setColor(Color.GREEN);
-        shapes.rect(position.x, position.y, size.x, size.y);
+//        shapes.set(ShapeRenderer.ShapeType.Filled);
+//        shapes.setColor(Color.GREEN);
+//        shapes.rect(position.x, position.y, size.x, size.y);
     }
 
     @Override

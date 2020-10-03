@@ -13,6 +13,7 @@ public class AnimationComponent implements Component {
     private TextureRegion currentFrame;
     private float stateTime, framerate;
     private boolean playing;
+    private boolean xFlip, yFlip;
 
     public AnimationComponent(AnimationComponent animationComponent) {
 
@@ -186,5 +187,21 @@ public class AnimationComponent implements Component {
 
     public void setCurrentFrame(TextureRegion currentFrame) {
         this.currentFrame = currentFrame;
+    }
+
+    public boolean isxFlip() {
+        return xFlip;
+    }
+
+    public void setxFlip(boolean xFlip) {
+        this.xFlip = xFlip;
+    }
+
+    public boolean isyFlip() {
+        return yFlip;
+    }
+
+    public void setyFlip(boolean yFlip) {
+        this.yFlip = yFlip;
     }
 }
