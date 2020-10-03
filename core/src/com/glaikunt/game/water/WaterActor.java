@@ -21,7 +21,7 @@ public class WaterActor extends Actor {
 
         this.waterAnimation = new AnimationComponent(applicationResources.getCacheRetriever().geTextureCache(TextureCache.WATER), 9, 5);
         this.waterAnimation.setPlayMode(Animation.PlayMode.LOOP);
-        this.position = new PositionComponent(-15, (-waterAnimation.getCurrentFrame().getRegionHeight())+20);
+        this.position = new PositionComponent(-15, (-waterAnimation.getCurrentFrame().getRegionHeight())+30);
 
         waterEntity.add(position);
         waterEntity.add(waterAnimation);
