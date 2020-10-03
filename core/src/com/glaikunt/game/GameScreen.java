@@ -7,11 +7,13 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.glaikunt.application.ApplicationResources;
 import com.glaikunt.application.Screen;
+import com.glaikunt.ecs.systems.AnimationSystem;
 import com.glaikunt.ecs.systems.DetectCollisionSystem;
 import com.glaikunt.game.collision.BlockActor;
 import com.glaikunt.game.levels.LevelOne;
 import com.glaikunt.game.phase.PhaseOne;
 import com.glaikunt.game.player.PlayerActor;
+import com.glaikunt.game.water.WaterActor;
 
 import static com.glaikunt.application.cache.TiledCache.LEVEL_1;
 
@@ -47,10 +49,13 @@ public class GameScreen extends Screen {
 
         if (currentLevel == 0) {
 
-            getUX().addActor(new LevelOne(getApplicationResources(), player, getUX()));
+            getFront().addActor(new LevelOne(getApplicationResources(), player, getFront()));
         }
 
-        getApplicationResources().getEngine().addSystem(new DetectCollisionSystem(getApplicationResources().getEngine()));
+        getUX().addActor(new WaterActor(getApplicationResources()));
+
+        getApplicationResources().getEngine().addSystem(new DetectCollisionSystem(getEngine()));
+        getApplicationResources().getEngine().addSystem(new AnimationSystem(getEngine()));
     }
 
     @Override

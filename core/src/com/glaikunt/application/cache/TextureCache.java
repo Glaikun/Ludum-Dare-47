@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class TextureCache implements Cache {
 
+    public static final String WATER = "game/water.png";
 
     private Map<String, Texture> textureMap = new HashMap<>();
     private boolean loaded = false;
@@ -15,6 +16,7 @@ public class TextureCache implements Cache {
     @Override
     public void loadCache(AssetManager assetManager) {
 
+        add(assetManager, WATER);
     }
 
     @Override
