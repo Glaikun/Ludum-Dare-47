@@ -5,11 +5,15 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.glaikunt.application.ApplicationResources;
+import com.glaikunt.application.TickTimer;
 import com.glaikunt.application.cache.TextureCache;
 import com.glaikunt.ecs.components.AnimationComponent;
 import com.glaikunt.ecs.components.PositionComponent;
 
 public class WaterActor extends Actor {
+
+    private TickTimer removeWater = new TickTimer(3);
+    private boolean startRemovingWater;
 
     private AnimationComponent waterAnimation;
 
@@ -31,9 +35,16 @@ public class WaterActor extends Actor {
     @Override
     public void act(float delta) {
 
-        if (position.y < 0) {
+        if (isStartRemovingWater()) {
 
-            position.y += 5 * delta;
+            position.y -= 15 * delta;
+            removeWater.tick(delta);
+            if (removeWater.isTimerEventReady()) {
+                setStartRemovingWater(false);
+            }
+        } else if (position.y < 0) {
+
+            position.y += 30 * delta;
         }
     }
 
@@ -43,5 +54,13 @@ public class WaterActor extends Actor {
         batch.setColor(1, 1, 1, .4f);
         batch.draw(waterAnimation.getCurrentFrame(), position.x, position.y);
         batch.setColor(1, 1, 1, 1f);
+    }
+
+    public boolean isStartRemovingWater() {
+        return startRemovingWater;
+    }
+
+    public void setStartRemovingWater(boolean startRemovingWater) {
+        this.startRemovingWater = startRemovingWater;
     }
 }

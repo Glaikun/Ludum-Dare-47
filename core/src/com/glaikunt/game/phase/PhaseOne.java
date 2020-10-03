@@ -15,6 +15,7 @@ import com.glaikunt.application.cache.FontCache;
 import com.glaikunt.ecs.components.PositionComponent;
 import com.glaikunt.game.collision.SpeechBlockActor;
 import com.glaikunt.game.player.PlayerActor;
+import com.glaikunt.game.water.WaterActor;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +34,8 @@ public class PhaseOne extends Phase {
     private SpeechBlockActor winningSpeech;
     private List<SpeechBlockActor> wrongSpeech = new LinkedList<>();
 
-    public PhaseOne(ApplicationResources applicationResources, PlayerActor player, Stage uxStage) {
+    public PhaseOne(ApplicationResources applicationResources, PlayerActor player, WaterActor water, Stage uxStage) {
+        super(applicationResources, player, water, uxStage);
 
         this.applicationResources = applicationResources;
         TiledMap tiled = applicationResources.getCacheRetriever().getTiledCache().getTiledMapCache(LEVEL_1);
@@ -79,5 +81,14 @@ public class PhaseOne extends Phase {
     @Override
     public boolean isPhaseFailed() {
         return false;
+    }
+
+    @Override
+    public boolean remove() {
+        winningSpeech.remove();
+        for (SpeechBlockActor speechBlockActor : wrongSpeech) {
+            speechBlockActor.remove();
+        }
+        return super.remove();
     }
 }
