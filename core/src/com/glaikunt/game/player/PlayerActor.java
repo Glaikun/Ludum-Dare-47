@@ -176,4 +176,24 @@ public class PlayerActor extends Actor implements InputProcessor {
     public boolean scrolled(int amount) {
         return false;
     }
+
+    @Override
+    public float getX() {
+        return position.x;
+    }
+
+    @Override
+    public float getY() {
+        return position.y;
+    }
+
+    @Override
+    public float getWidth() {
+        return size.x;
+    }
+
+    @Override
+    public float getHeight() {
+        return size.y;
+    }
 }

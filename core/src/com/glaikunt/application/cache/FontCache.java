@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class FontCache implements Cache {
 
-    public static final String GAME_FONT = "font/kenny_thick.fnt";
-    public static final String GAME_FUTURE = "font/kenny_future.fnt";
+    public static final String SENTENCE_FONT = "font/kenny_thick.fnt";
+    public static final String SPEECH_BLOCK_FONT = "font/kenny_future.fnt";
 
     private Map<String, BitmapFont> fonts = new HashMap<>();
     private boolean loaded = false;
@@ -17,8 +17,8 @@ public class FontCache implements Cache {
     @Override
     public void loadCache(AssetManager assetManager) {
 
-        add(GAME_FONT, assetManager);
-        add(GAME_FUTURE, assetManager);
+        add(SENTENCE_FONT, assetManager);
+        add(SPEECH_BLOCK_FONT, assetManager);
     }
 
     private void add(String filePath, AssetManager assetManager) {

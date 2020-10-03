@@ -9,11 +9,15 @@ import com.glaikunt.application.ApplicationResources;
 import com.glaikunt.application.Screen;
 import com.glaikunt.ecs.systems.DetectCollisionSystem;
 import com.glaikunt.game.collision.BlockActor;
+import com.glaikunt.game.levels.LevelOne;
+import com.glaikunt.game.phase.PhaseOne;
 import com.glaikunt.game.player.PlayerActor;
 
 import static com.glaikunt.application.cache.TiledCache.LEVEL_1;
 
 public class GameScreen extends Screen {
+
+    private float currentLevel = 0;
 
     public GameScreen(ApplicationResources applicationResources) {
         super(applicationResources);
@@ -27,19 +31,23 @@ public class GameScreen extends Screen {
         getFront().addActor(player);
 
         TiledMap tiled = getApplicationResources().getCacheRetriever().getTiledCache().getTiledMapCache(LEVEL_1);
-
-        TiledMapTileLayer pathLayer = (TiledMapTileLayer) tiled.getLayers().get("Blocks");
-        for (int y = pathLayer.getHeight(); y >= 0; y--) {
-            float yPos = (y * (int) pathLayer.getTileHeight());
-            for (int x = 0; x < pathLayer.getWidth(); x++) {
-                float xPos = (x * (int) pathLayer.getTileWidth());
-                TiledMapTileLayer.Cell cell = pathLayer.getCell(x, y);
+        TiledMapTileLayer blocksLayer = (TiledMapTileLayer) tiled.getLayers().get("Blocks");
+        for (int y = blocksLayer.getHeight(); y >= 0; y--) {
+            float yPos = (y * (int) blocksLayer.getTileHeight());
+            for (int x = 0; x < blocksLayer.getWidth(); x++) {
+                float xPos = (x * (int) blocksLayer.getTileWidth());
+                TiledMapTileLayer.Cell cell = blocksLayer.getCell(x, y);
                 if (cell == null) continue;
 
                 Vector2 pos = new Vector2(xPos, yPos);
                 BlockActor blockActor = new BlockActor(getApplicationResources(), pos.x, pos.y);
                 getFront().addActor(blockActor);
             }
+        }
+
+        if (currentLevel == 0) {
+
+            getUX().addActor(new LevelOne(getApplicationResources(), player, getUX()));
         }
 
         getApplicationResources().getEngine().addSystem(new DetectCollisionSystem(getApplicationResources().getEngine()));
