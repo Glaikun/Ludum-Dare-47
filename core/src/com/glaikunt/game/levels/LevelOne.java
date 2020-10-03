@@ -15,6 +15,8 @@ import com.glaikunt.application.cache.FontCache;
 import com.glaikunt.application.cache.TextureCache;
 import com.glaikunt.game.phase.Phase;
 import com.glaikunt.game.phase.PhaseOne;
+import com.glaikunt.game.phase.PhaseThree;
+import com.glaikunt.game.phase.PhaseTwo;
 import com.glaikunt.game.player.PlayerActor;
 import com.glaikunt.game.water.WaterActor;
 
@@ -22,7 +24,7 @@ public class LevelOne extends Actor {
 
     private ApplicationResources applicationResources;
     private int currentPhase = 0;
-    private Phase activePhase;
+    private Phase activePhase, lastPhase;
     private WaterActor water;
     private PlayerActor player;
     private Stage ux;
@@ -50,12 +52,25 @@ public class LevelOne extends Actor {
 
     private void setCurrentPhase() {
         if (currentPhase == 0) {
-
-
-            this.water = new WaterActor(applicationResources);
             this.activePhase = new PhaseOne(applicationResources, player, water, ux, 1);
             this.ux.addActor(activePhase);
             this.ux.addActor(water);
+            if (lastPhase != null) {
+                this.lastPhase.remove();
+            }
+            player.resetPosition();
+        } else if (currentPhase == 1) {
+            this.activePhase = new PhaseTwo(applicationResources, player, water, ux, 1);
+            this.ux.addActor(activePhase);
+            this.ux.addActor(water);
+            this.lastPhase.remove();
+            player.resetPosition();
+        } else if (currentPhase == 2) {
+            this.activePhase = new PhaseThree(applicationResources, player, water, ux, 1);
+            this.ux.addActor(activePhase);
+            this.ux.addActor(water);
+            this.lastPhase.remove();
+            player.resetPosition();
         }
     }
 
@@ -70,15 +85,16 @@ public class LevelOne extends Actor {
                 setCurrentPhase();
             }
         } else if (activePhase.isPhasePassed()) {
-            activePhase.remove();
+            lastPhase = activePhase;
             activePhase = null;
             currentPhase++;
             water.setStartRemovingWater(true);
 
             Gdx.app.log("DEBUG", "WINNER! WINNER!");
         } else if (activePhase.isPhaseFailed()) {
+            lastPhase = activePhase;
             activePhase.remove();
-            water.remove();
+            water.resetPosition();
             activePhase = null;
 
             Gdx.app.log("DEBUG", "LOOOSER! LOOSER!");

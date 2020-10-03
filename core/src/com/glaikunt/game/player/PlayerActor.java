@@ -118,13 +118,17 @@ public class PlayerActor extends Actor implements InputProcessor {
         }
 
         if (position.y <= 0) {
-            this.position.set(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
-            this.velocity.x = 0;
-            this.velocity.y = 5;
-            this.jump = false;
-            this.left = false;
-            this.right = false;
+            resetPosition();
         }
+    }
+
+    public void resetPosition() {
+        this.position.set(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        this.velocity.x = 0;
+        this.velocity.y = 5;
+        this.jump = false;
+        this.left = false;
+        this.right = false;
     }
 
     @Override
