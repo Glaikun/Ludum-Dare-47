@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Align;
 import com.glaikunt.application.ApplicationResources;
+import com.glaikunt.application.TickTimer;
 import com.glaikunt.application.cache.FontCache;
 import com.glaikunt.ecs.components.PositionComponent;
 import com.glaikunt.game.collision.SpeechBlockActor;
@@ -20,7 +21,8 @@ import com.glaikunt.game.water.WaterActor;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.glaikunt.application.cache.TiledCache.LEVEL_1;
+import static com.glaikunt.application.cache.TiledCache.LEVEL_;
+import static com.glaikunt.application.cache.TiledCache.SUFFIX_TMX;
 
 public class PhaseOne extends Phase {
 
@@ -34,11 +36,13 @@ public class PhaseOne extends Phase {
     private SpeechBlockActor winningSpeech;
     private List<SpeechBlockActor> wrongSpeech = new LinkedList<>();
 
-    public PhaseOne(ApplicationResources applicationResources, PlayerActor player, WaterActor water, Stage uxStage) {
-        super(applicationResources, player, water, uxStage);
+    private TickTimer lockedInTimer = new TickTimer(5), winnerLockedInTimer = new TickTimer(2);
+
+    public PhaseOne(ApplicationResources applicationResources, PlayerActor player, WaterActor water, Stage uxStage, int currentLevel) {
+        super(applicationResources, player, water, uxStage, currentLevel);
 
         this.applicationResources = applicationResources;
-        TiledMap tiled = applicationResources.getCacheRetriever().getTiledCache().getTiledMapCache(LEVEL_1);
+        TiledMap tiled = applicationResources.getCacheRetriever().getTiledCache().getTiledMapCache(LEVEL_ + currentLevel + SUFFIX_TMX);
         TiledMapTileLayer speechLayer = (TiledMapTileLayer) tiled.getLayers().get("PhaseOne");
         for (int y = speechLayer.getHeight(); y >= 0; y--) {
             float yPos = (y * speechLayer.getTileHeight());
@@ -71,16 +75,48 @@ public class PhaseOne extends Phase {
     public void draw(Batch batch, float parentAlpha) {
 
         futureFont.draw(batch, word, position.x, position.y);
+
+    }
+
+    @Override
+    public void act(float delta) {
+
+        boolean isSpeechCollidingPlayer = false;
+        if (winningSpeech.isPlayerOnSpeechBlock()) {
+            isSpeechCollidingPlayer = true;
+        }
+        for (SpeechBlockActor speechBlockActor : wrongSpeech) {
+            if (speechBlockActor.isPlayerOnSpeechBlock()) {
+                isSpeechCollidingPlayer = true;
+            }
+        }
+
+        if (!isSpeechCollidingPlayer && (lockedInTimer.getTick() > 0 || winnerLockedInTimer.getTick() > 0)){
+            lockedInTimer.setTick(0);
+            winnerLockedInTimer.setTick(0);
+        }
     }
 
     @Override
     public boolean isPhasePassed() {
-        return winningSpeech.isPlayerOnSpeechBlock();
+        if (winningSpeech.isPlayerOnSpeechBlock()) {
+            winnerLockedInTimer.tick(Gdx.graphics.getDeltaTime());
+            return winnerLockedInTimer.isTimerEventReady();
+        }
+        return false;
     }
 
     @Override
     public boolean isPhaseFailed() {
-        return false;
+
+        boolean isFailed = false;
+        for (SpeechBlockActor speechBlockActor : wrongSpeech) {
+            if (speechBlockActor.isPlayerOnSpeechBlock()) {
+                lockedInTimer.tick(Gdx.graphics.getDeltaTime());
+                return lockedInTimer.isTimerEventReady();
+            }
+        }
+        return isFailed;
     }
 
     @Override

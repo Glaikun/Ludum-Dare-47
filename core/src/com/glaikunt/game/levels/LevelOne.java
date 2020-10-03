@@ -18,9 +18,12 @@ import com.glaikunt.game.water.WaterActor;
 
 public class LevelOne extends Actor {
 
+    private ApplicationResources applicationResources;
     private int currentPhase = 0;
     private Phase activePhase;
     private WaterActor water;
+    private PlayerActor player;
+    private Stage ux;
 
     private TickTimer winner = new TickTimer(1);
 
@@ -28,19 +31,31 @@ public class LevelOne extends Actor {
     private BitmapFont font;
     private GlyphLayout layout;
 
-    public LevelOne(ApplicationResources applicationResources, PlayerActor player, WaterActor water, Stage ux) {
+    public LevelOne(ApplicationResources applicationResources, PlayerActor player, Stage ux) {
 
+        this.applicationResources = applicationResources;
+        this.player = player;
+        this.ux = ux;
         this.font = applicationResources.getCacheRetriever().getFontCache(FontCache.SENTENCE_FONT);
         this.layout = new GlyphLayout();
         this.layout.setText(font, "0", new Color(1f, 1f, 1f, 1f), 0, Align.center, false);
-        this.water = water;
+        this.water = new WaterActor(applicationResources);
+        this.setCurrentPhase();
+        this.winner.setTick(1);
 
+
+    }
+
+    private void setCurrentPhase() {
         if (currentPhase == 0) {
-            this.activePhase = new PhaseOne(applicationResources, player, water, ux);
+            this.activePhase = new PhaseOne(applicationResources, player, water, ux, 1);
             ux.addActor(activePhase);
+
+            this.water = new WaterActor(applicationResources);
+            this.ux.addActor(water);
         }
 
-        winner.setTick(1);
+
     }
 
     @Override
@@ -50,8 +65,8 @@ public class LevelOne extends Actor {
 
             newPhase.tick(delta);
 
-            if (winner.isTimerEventReady()) {
-
+            if (newPhase.isTimerEventReady()) {
+                setCurrentPhase();
             }
         } else if (activePhase.isPhasePassed()) {
             activePhase.remove();
@@ -60,9 +75,13 @@ public class LevelOne extends Actor {
             water.setStartRemovingWater(true);
 
             Gdx.app.log("DEBUG", "WINNER! WINNER!");
+        } else if (activePhase.isPhaseFailed()) {
+            activePhase.remove();
+            water.remove();
+            activePhase = null;
+
+            Gdx.app.log("DEBUG", "LOOOSER! LOOSER!");
         }
-
-
     }
 
     @Override

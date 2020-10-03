@@ -11,12 +11,14 @@ public abstract class Phase extends Actor {
     protected PlayerActor player;
     protected WaterActor water;
     protected Stage uxStage;
+    protected int currentLevel;
 
-    public Phase(ApplicationResources applicationResources, PlayerActor player, WaterActor water, Stage uxStage) {
+    public Phase(ApplicationResources applicationResources, PlayerActor player, WaterActor water, Stage uxStage, int currentLevel) {
 
         this.player = player;
         this.water = water;
         this.uxStage = uxStage;
+        this.currentLevel = currentLevel;
     }
 
     public PlayerActor getPlayer() {

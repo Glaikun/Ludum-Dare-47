@@ -47,13 +47,10 @@ public class GameScreen extends Screen {
             }
         }
 
-        WaterActor water = new WaterActor(getApplicationResources());
         if (currentLevel == 0) {
 
-            getUX().addActor(new LevelOne(getApplicationResources(), player, water, getFront()));
+            getUX().addActor(new LevelOne(getApplicationResources(), player, getFront()));
         }
-
-        getUX().addActor(water);
 
         getApplicationResources().getEngine().addSystem(new DetectCollisionSystem(getEngine()));
         getApplicationResources().getEngine().addSystem(new AnimationSystem(getEngine()));

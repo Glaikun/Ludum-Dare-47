@@ -11,6 +11,9 @@ import java.util.Map;
 
 public class TiledCache implements Cache {
 
+    public static final String LEVEL_ = "tiled/level_";
+    public static final String SUFFIX_TMX = ".tmx";
+
     public static final String LEVEL_1 = "tiled/level_1.tmx";
 
     private Map<String, TiledMap> tiledMap = new HashMap<>();
