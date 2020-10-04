@@ -2,24 +2,25 @@ package com.glaikunt.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.glaikunt.application.ApplicationResources;
 import com.glaikunt.application.Screen;
+import com.glaikunt.ecs.components.LevelComponent;
 import com.glaikunt.ecs.systems.AnimationSystem;
 import com.glaikunt.ecs.systems.DetectCollisionSystem;
 import com.glaikunt.game.collision.BlockActor;
 import com.glaikunt.game.levels.LevelOne;
+import com.glaikunt.game.levels.LevelTwo;
 import com.glaikunt.game.player.PlayerActor;
 
-import static com.glaikunt.application.cache.TiledCache.LEVEL_1;
+import static com.glaikunt.application.cache.TiledCache.LEVEL_;
+import static com.glaikunt.application.cache.TiledCache.SUFFIX_TMX;
 
 public class GameScreen extends Screen {
 
-    private float currentLevel = 0;
+    private int currentLevel;
 
     public GameScreen(ApplicationResources applicationResources) {
         super(applicationResources);
@@ -28,11 +29,13 @@ public class GameScreen extends Screen {
     @Override
     public void show() {
 
+        currentLevel = getApplicationResources().getGlobalEntity().getComponent(LevelComponent.class).getCurrentLevel();
+
         PlayerActor player = new PlayerActor(getApplicationResources());
         Gdx.input.setInputProcessor(player);
         getFront().addActor(player);
 
-        TiledMap tiled = getApplicationResources().getCacheRetriever().getTiledCache().getTiledMapCache(LEVEL_1);
+        TiledMap tiled = getApplicationResources().getCacheRetriever().getTiledCache().getTiledMapCache(LEVEL_ + currentLevel + SUFFIX_TMX);
         TiledMapTileLayer blocksLayer = (TiledMapTileLayer) tiled.getLayers().get("Blocks");
         for (int y = blocksLayer.getHeight(); y >= 0; y--) {
             float yPos = (y * (int) blocksLayer.getTileHeight());
@@ -47,9 +50,12 @@ public class GameScreen extends Screen {
             }
         }
 
-        if (currentLevel == 0) {
+        if (currentLevel == 1) {
 
-            getUX().addActor(new LevelOne(getApplicationResources(), player, getFront()));
+            getUX().addActor(new LevelOne(getApplicationResources(), player, getFront(), currentLevel));
+        } else if (currentLevel == 2) {
+
+            getUX().addActor(new LevelTwo(getApplicationResources(), player, getFront(), currentLevel));
         }
 
         getBackground().addActor(new BackgroundActor(getApplicationResources()));
