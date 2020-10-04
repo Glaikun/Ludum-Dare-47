@@ -10,7 +10,9 @@ public class TextureCache implements Cache {
 
     public static final String WATER = "game/water.png";
     public static final String PLAYER = "game/character.png";
+    public static final String HUMAN_PLAYER = "game/human_character.png";
     public static final String BACKGROUND = "game/background.png";
+    public static final String DEMON = "game/demon.png";
 
     private Map<String, Texture> textureMap = new HashMap<>();
     private boolean loaded = false;
@@ -18,7 +20,7 @@ public class TextureCache implements Cache {
     @Override
     public void loadCache(AssetManager assetManager) {
 
-        add(assetManager, WATER, PLAYER, BACKGROUND);
+        add(assetManager, WATER, PLAYER, HUMAN_PLAYER, BACKGROUND, DEMON);
     }
 
     @Override

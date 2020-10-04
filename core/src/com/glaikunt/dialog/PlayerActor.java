@@ -35,9 +35,15 @@ public class PlayerActor extends Actor {
         this.applicationResources = applicationResources;
         this.playerEntity = new Entity();
 
-        this.playerAnimation = new AnimationComponent(applicationResources.getCacheRetriever().geTextureCache(TextureCache.PLAYER), 3, 1);
-        this.playerAnimation.setPlaying(false);
-        this.playerAnimation.setxFlip(false);
+        if (applicationResources.getGlobalEntity().getComponent(LevelComponent.class).getCurrentLevel() == 4) {
+            this.playerAnimation = new AnimationComponent(applicationResources.getCacheRetriever().geTextureCache(TextureCache.HUMAN_PLAYER), 1, 1);
+            this.playerAnimation.setPlaying(false);
+            this.playerAnimation.setxFlip(false);
+        } else {
+            this.playerAnimation = new AnimationComponent(applicationResources.getCacheRetriever().geTextureCache(TextureCache.PLAYER), 3, 1);
+            this.playerAnimation.setPlaying(false);
+            this.playerAnimation.setxFlip(false);
+        }
         this.size = new SizeComponent(32, 48);
         this.position = new PositionComponent((Gdx.graphics.getWidth()/2f) - playerAnimation.getCurrentFrame().getRegionWidth(), (Gdx.graphics.getHeight()/2f) - playerAnimation.getCurrentFrame().getRegionHeight());
         this.player = new PlayerComponent();
@@ -71,6 +77,8 @@ public class PlayerActor extends Actor {
 
             textQueueComponent.getQueue().add(text_1);
         }
+
+
 
         playerEntity.add(textQueueComponent);
 

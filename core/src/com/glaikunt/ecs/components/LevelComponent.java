@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Component;
 
 public class LevelComponent implements Component {
 
-    private int currentLevel = 4;
+    private int currentLevel = 1;
 
     public int getCurrentLevel() {
         return currentLevel;

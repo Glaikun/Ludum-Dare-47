@@ -27,16 +27,16 @@ public class WrongWordsActor extends Actor {
         this.font = applicationResources.getCacheRetriever().getFontCache(FontCache.SENTENCE_FONT);
 
         this.weak = new GlyphLayout();
-        this.weak.setText(font, "Weak", new Color(1, 0, 0, .5f), 0, Align.center, false);
+        this.weak.setText(font, "Weak", new Color(1, 0, 0, .05f), 0, Align.center, false);
 
         this.attention = new GlyphLayout();
-        this.attention.setText(font, "Attention", new Color(1, 0, 0, .5f), 0, Align.center, false);
+        this.attention.setText(font, "Attention", new Color(1, 0, 0, .05f), 0, Align.center, false);
 
         this.snap_out = new GlyphLayout();
-        this.snap_out.setText(font, "Snap Out", new Color(1, 0, 0, .5f), 0, Align.center, false);
+        this.snap_out.setText(font, "Snap Out", new Color(1, 0, 0, .05f), 0, Align.center, false);
 
         this.dramatic = new GlyphLayout();
-        this.dramatic.setText(font, "Dramatic", new Color(1, 0, 0, .5f), 0, Align.center, false);
+        this.dramatic.setText(font, "Dramatic", new Color(1, 0, 0, .05f), 0, Align.center, false);
 
         this.weakPos = new PositionComponent(0, 0);
         this.attentionPos = new PositionComponent(0, 0);
