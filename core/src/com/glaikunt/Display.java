@@ -2,7 +2,9 @@ package com.glaikunt;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.glaikunt.application.ApplicationResources;
+import com.glaikunt.application.cache.SoundCache;
 import com.glaikunt.ecs.components.LevelComponent;
 import com.glaikunt.splash.SplashScreen;
 
@@ -26,6 +28,11 @@ public class Display extends Game {
 
 	@Override
 	public void render() {
+
+		if (applicationResources.getCacheRetriever().isCacheLoaded()) {
+
+
+		}
 
 		if (!isPaused()) {
 			applicationResources.getEngine().update(Gdx.graphics.getDeltaTime());

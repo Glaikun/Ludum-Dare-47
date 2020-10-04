@@ -65,18 +65,21 @@ public class LevelTwo extends Actor {
                 this.lastPhase.remove();
             }
             player.resetPosition();
+            water.setPauseWater(false);
         } else if (currentPhase == 1) {
             this.activePhase = new PhaseFive(applicationResources, player, water, ux, currentLevel);
             this.ux.addActor(activePhase);
             this.ux.addActor(water);
             this.lastPhase.remove();
             player.resetPosition();
+            water.setPauseWater(false);
         } else if (currentPhase == 2) {
             this.activePhase = new PhaseSix(applicationResources, player, water, ux, currentLevel);
             this.ux.addActor(activePhase);
             this.ux.addActor(water);
             this.lastPhase.remove();
             player.resetPosition();
+            water.setPauseWater(false);
         }
     }
 
@@ -97,6 +100,7 @@ public class LevelTwo extends Actor {
 
             if (newPhase.isTimerEventReady()) {
                 setCurrentPhase();
+
             }
         } else if (activePhase.isPhasePassed()) {
 
@@ -111,9 +115,10 @@ public class LevelTwo extends Actor {
                 activePhase.setHide(true);
             }
             Gdx.app.log("DEBUG", "WINNER! WINNER! [" + currentPhase + "]");
-        } else if (activePhase.isPhaseFailed()) {
+        } else if (activePhase.isPhaseFailed() || water.getY()+(water.getHeight()-90) > player.getY()+player.getHeight()) {
             lastPhase = activePhase;
             activePhase.remove();
+            water.setPauseWater(true);
             water.resetPosition();
             activePhase = null;
             Gdx.app.log("DEBUG", "LOOOSER! LOOSER!");
