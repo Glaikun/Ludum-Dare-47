@@ -50,20 +50,6 @@ public class PlayerActor extends Actor {
 
         this.textQueueComponent = new TextQueueComponent();
 
-        if (applicationResources.getGlobalEntity().getComponent(LevelComponent.class).getCurrentLevel() == 2) {
-            DelayedTextComponent text_1 = new DelayedTextComponent();
-            text_1.setLayout(new GlyphLayout());
-            text_1.setDelay(new TickTimer(.05f));
-            text_1.setColour(new Color(0f, 1f, .0f, 1));
-            text_1.setTargetWidth(220);
-            text_1.setWrap(true);
-            text_1.setText("F*ck You!");
-            text_1.setFont(applicationResources.getCacheRetriever().getFontCache(FontCache.SPEECH_BLOCK_FONT));
-            text_1.getLayout().setText(text_1.getFont(), text_1.getDeltaText(), text_1.getColour(), text_1.getTargetWidth(), text_1.getAlign(), text_1.isWrap());
-
-            textQueueComponent.getQueue().add(text_1);
-        }
-
         if (applicationResources.getGlobalEntity().getComponent(LevelComponent.class).getCurrentLevel() == 3) {
             DelayedTextComponent text_1 = new DelayedTextComponent();
             text_1.setLayout(new GlyphLayout());
@@ -71,14 +57,12 @@ public class PlayerActor extends Actor {
             text_1.setColour(new Color(0f, 1f, .0f, 1));
             text_1.setTargetWidth(220);
             text_1.setWrap(true);
-            text_1.setText("I'm String A F*ck!");
+            text_1.setText("I will not listen to you. I do not deserve this. Go Away!");
             text_1.setFont(applicationResources.getCacheRetriever().getFontCache(FontCache.SPEECH_BLOCK_FONT));
             text_1.getLayout().setText(text_1.getFont(), text_1.getDeltaText(), text_1.getColour(), text_1.getTargetWidth(), text_1.getAlign(), text_1.isWrap());
 
             textQueueComponent.getQueue().add(text_1);
         }
-
-
 
         playerEntity.add(textQueueComponent);
 

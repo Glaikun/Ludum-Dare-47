@@ -54,6 +54,18 @@ public class DemonActor extends Actor {
             text_1.getLayout().setText(text_1.getFont(), text_1.getDeltaText(), text_1.getColour(), text_1.getTargetWidth(), text_1.getAlign(), text_1.isWrap());
 
             textQueueComponent.getQueue().add(text_1);
+        } else if (applicationResources.getGlobalEntity().getComponent(LevelComponent.class).getCurrentLevel() == 2) {
+            DelayedTextComponent text_1 = new DelayedTextComponent();
+            text_1.setLayout(new GlyphLayout());
+            text_1.setDelay(new TickTimer(.1f));
+            text_1.setColour(new Color(1f, .0f, .0f, 1));
+            text_1.setTargetWidth(300);
+            text_1.setWrap(true);
+            text_1.setText("No! Stop! Youre doing it wrong! Try Again!");
+            text_1.setFont(applicationResources.getCacheRetriever().getFontCache(FontCache.SPEECH_BLOCK_FONT));
+            text_1.getLayout().setText(text_1.getFont(), text_1.getDeltaText(), text_1.getColour(), text_1.getTargetWidth(), text_1.getAlign(), text_1.isWrap());
+
+            textQueueComponent.getQueue().add(text_1);
         }
 
         if (applicationResources.getGlobalEntity().getComponent(LevelComponent.class).getCurrentLevel() == 4) {
