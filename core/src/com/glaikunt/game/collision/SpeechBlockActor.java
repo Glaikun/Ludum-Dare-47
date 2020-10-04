@@ -75,4 +75,24 @@ public class SpeechBlockActor extends Actor {
     public boolean isPlayerOnSpeechBlock() {
         return playerRect.intersects(speechBlockRect);
     }
+
+    @Override
+    public float getX() {
+        return speechBlockRect.x;
+    }
+
+    @Override
+    public float getY() {
+        return speechBlockRect.y;
+    }
+
+    @Override
+    public float getWidth() {
+        return speechBlockRect.width;
+    }
+
+    @Override
+    public float getHeight() {
+        return speechBlockRect.height;
+    }
 }

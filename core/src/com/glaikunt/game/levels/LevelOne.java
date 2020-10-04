@@ -33,7 +33,7 @@ public class LevelOne extends Actor {
 
     private TickTimer newPhase = new TickTimer(3);
     private BitmapFont font;
-    private GlyphLayout layout;
+    private GlyphLayout layout, word;
 
     public LevelOne(ApplicationResources applicationResources, PlayerActor player, Stage ux) {
 
@@ -43,11 +43,11 @@ public class LevelOne extends Actor {
         this.font = applicationResources.getCacheRetriever().getFontCache(FontCache.SENTENCE_FONT);
         this.layout = new GlyphLayout();
         this.layout.setText(font, "0", new Color(1f, 1f, 1f, 1f), 0, Align.center, false);
+        this.word = new GlyphLayout();
+        this.word.setText(font, "Wasn't", new Color(.3f, .8f, 0f, 1f), 0, Align.center, false);
         this.water = new WaterActor(applicationResources);
         this.setCurrentPhase();
         this.winner.setTick(1);
-
-
     }
 
     private void setCurrentPhase() {
@@ -77,7 +77,10 @@ public class LevelOne extends Actor {
     @Override
     public void act(float delta) {
 
-        if (activePhase == null) {
+        if (currentPhase >= 3) {
+
+            this.layout.setText(font, "Remember This Word:", new Color(1f, 1f, 1f, 1f), 0, Align.center, false);
+        } else if (activePhase == null) {
 
             newPhase.tick(delta);
 
@@ -85,18 +88,23 @@ public class LevelOne extends Actor {
                 setCurrentPhase();
             }
         } else if (activePhase.isPhasePassed()) {
-            lastPhase = activePhase;
-            activePhase = null;
-            currentPhase++;
-            water.setStartRemovingWater(true);
 
-            Gdx.app.log("DEBUG", "WINNER! WINNER!");
+            currentPhase++;
+            if (currentPhase <= 2) {
+
+                lastPhase = activePhase;
+                activePhase = null;
+                water.setStartRemovingWater(true);
+            } else {
+                water.setPauseWater(true);
+                activePhase.setHide(true);
+            }
+            Gdx.app.log("DEBUG", "WINNER! WINNER! [" + currentPhase + "]");
         } else if (activePhase.isPhaseFailed()) {
             lastPhase = activePhase;
             activePhase.remove();
             water.resetPosition();
             activePhase = null;
-
             Gdx.app.log("DEBUG", "LOOOSER! LOOSER!");
         }
     }
@@ -107,6 +115,9 @@ public class LevelOne extends Actor {
         if (activePhase == null) {
             this.layout.setText(font, Math.round(Math.abs(newPhase.getTargetTime()-newPhase.getTick())) + "", new Color(1f, 1f, 1f, 1f), 0, Align.center, false);
             font.draw(batch, layout, (Gdx.graphics.getWidth() / 2f), (Gdx.graphics.getHeight() / 2f) + (layout.height / 2));
+        } else if (currentPhase >= 3) {
+            font.draw(batch, layout, (Gdx.graphics.getWidth() / 2f), (Gdx.graphics.getHeight() / 2f) + (layout.height / 2));
+            font.draw(batch, word, (Gdx.graphics.getWidth() / 2f), (Gdx.graphics.getHeight() / 2f) - (word.height ));
         }
     }
 }

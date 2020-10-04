@@ -15,7 +15,7 @@ import com.glaikunt.ecs.components.VelocityComponent;
 public class WaterActor extends Actor {
 
     private TickTimer removeWater = new TickTimer(3);
-    private boolean startRemovingWater;
+    private boolean startRemovingWater, pauseWater;
 
     private AnimationComponent waterAnimation;
 
@@ -30,7 +30,7 @@ public class WaterActor extends Actor {
 
         this.waterAnimation = new AnimationComponent(applicationResources.getCacheRetriever().geTextureCache(TextureCache.WATER), 9, 5);
         this.waterAnimation.setPlayMode(Animation.PlayMode.LOOP);
-        this.position = new PositionComponent(-18, (-waterAnimation.getCurrentFrame().getRegionHeight())+30);
+        this.position = new PositionComponent(-18, (-waterAnimation.getCurrentFrame().getRegionHeight())+120);
         this.vel = new VelocityComponent();
         this.vel.set(8, 8);
         this.orbitRadius = vel.x/2;
@@ -51,7 +51,7 @@ public class WaterActor extends Actor {
             if (removeWater.isTimerEventReady()) {
                 setStartRemovingWater(false);
             }
-        } else if (position.y < -15) {
+        } else if (!isPauseWater() && position.y < -15) {
 
             position.y += vel.x * delta;
         }
@@ -99,5 +99,13 @@ public class WaterActor extends Actor {
 
     public void resetPosition() {
         this.position = new PositionComponent(-18, (-waterAnimation.getCurrentFrame().getRegionHeight())+30);
+    }
+
+    public void setPauseWater(boolean pauseWater) {
+        this.pauseWater = pauseWater;
+    }
+
+    public boolean isPauseWater() {
+        return pauseWater;
     }
 }

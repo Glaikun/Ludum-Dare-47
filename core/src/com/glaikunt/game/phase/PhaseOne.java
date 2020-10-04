@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -82,6 +83,12 @@ public class PhaseOne extends Phase {
         futureFont.draw(batch, word, position.x, (water.getY()+water.getHeight())-(50 + (word.height*2)));
         tiledMapRenderer.render();
 
+    }
+
+    @Override
+    public void drawDebug(ShapeRenderer shapes) {
+
+        drawLoading(shapes, winningSpeech, wrongSpeech, lockedInTimer, winnerLockedInTimer);
     }
 
     @Override

@@ -60,27 +60,12 @@ public class PlayerActor extends Actor implements InputProcessor {
         if (left) {
 
             if (playerAnimation.isAnimationFinished()) {
-
-                if (!playerAnimation.isxFlip()) {
-                    playerAnimation.setxFlip(true);
-                }
-                if (!this.playerAnimation.isPlaying()) {
-                    playerAnimation.setPlaying(true);
-                }
-
                 playerAnimation.setPlayMode(Animation.PlayMode.REVERSED);
             }
 
             velocity.x = Math.min(Math.max(velocity.x + (5f * delta), 0), 7.5f);
             position.x -= velocity.x;
         } else if (right) {
-
-            if (playerAnimation.isxFlip()) {
-                playerAnimation.setxFlip(false);
-            }
-            if (!this.playerAnimation.isPlaying()) {
-                playerAnimation.setPlaying(true);
-            }
 
             if (playerAnimation.isAnimationFinished()) {
                 playerAnimation.setPlayMode(Animation.PlayMode.REVERSED);
@@ -153,13 +138,29 @@ public class PlayerActor extends Actor implements InputProcessor {
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 
+
+
+            if (playerAnimation.isxFlip()) {
+                playerAnimation.setxFlip(false);
+            }
+            if (!this.playerAnimation.isPlaying()) {
+                playerAnimation.setPlaying(true);
+            }
+
             right = true;
         } else if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
+
+            if (!playerAnimation.isxFlip()) {
+                playerAnimation.setxFlip(true);
+            }
+            if (!this.playerAnimation.isPlaying()) {
+                playerAnimation.setPlaying(true);
+            }
 
             left = true;
         }
 
-        if (!jump && keycode == Input.Keys.SPACE) {
+        if (!jump && keycode == Input.Keys.SPACE || keycode == Input.Keys.W || keycode == Input.Keys.UP) {
 
             jump = true;
             velocity.y = 5;
