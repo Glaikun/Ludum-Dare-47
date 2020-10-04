@@ -98,7 +98,7 @@ public class WaterActor extends Actor {
     }
 
     public void resetPosition() {
-        this.position = new PositionComponent(-18, (-waterAnimation.getCurrentFrame().getRegionHeight())+30);
+        this.position.set(-18, (-waterAnimation.getCurrentFrame().getRegionHeight())+120);
     }
 
     public void setPauseWater(boolean pauseWater) {
