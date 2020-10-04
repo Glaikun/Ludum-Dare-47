@@ -3,15 +3,14 @@ package com.glaikunt.ecs.components;
 import com.badlogic.ashley.core.Component;
 import com.glaikunt.application.TickTimer;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.LinkedList;
 
 public class TextQueueComponent implements Component {
 
-    private final BlockingQueue<TextComponent> queue = new LinkedBlockingQueue<>();
+    private final LinkedList<TextComponent> queue = new LinkedList<>();
     private TickTimer swapDelay;
 
-    public BlockingQueue<TextComponent> getQueue() {
+    public LinkedList<TextComponent> getQueue() {
         return queue;
     }
 

@@ -22,8 +22,8 @@ allprojects {
     version = '1.0'
     ext {
         appName = "Ludum-Dare-47"
-        gdxVersion = '1.9.11'
-        roboVMVersion = '2.3.10'
+        gdxVersion = '1.9.9'
+        roboVMVersion = '2.3.5'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
