@@ -14,16 +14,16 @@ import com.glaikunt.application.cache.FontCache;
 import com.glaikunt.dialog.DialogScreen;
 import com.glaikunt.ecs.components.LevelComponent;
 import com.glaikunt.game.phase.Phase;
+import com.glaikunt.game.phase.PhaseEight;
 import com.glaikunt.game.phase.PhaseFive;
 import com.glaikunt.game.phase.PhaseFour;
-import com.glaikunt.game.phase.PhaseOne;
+import com.glaikunt.game.phase.PhaseNine;
+import com.glaikunt.game.phase.PhaseSeven;
 import com.glaikunt.game.phase.PhaseSix;
-import com.glaikunt.game.phase.PhaseThree;
-import com.glaikunt.game.phase.PhaseTwo;
 import com.glaikunt.game.player.PlayerActor;
 import com.glaikunt.game.water.WaterActor;
 
-public class LevelTwo extends Actor {
+public class LevelThree extends Actor {
 
     private ApplicationResources applicationResources;
     private int currentPhase = 0;
@@ -40,7 +40,7 @@ public class LevelTwo extends Actor {
     private int currentLevel;
     private TickTimer nextLevel = new TickTimer(5);
 
-    public LevelTwo(ApplicationResources applicationResources, PlayerActor player, Stage ux, int currentLevel) {
+    public LevelThree(ApplicationResources applicationResources, PlayerActor player, Stage ux, int currentLevel) {
 
         this.applicationResources = applicationResources;
         this.player = player;
@@ -49,7 +49,7 @@ public class LevelTwo extends Actor {
         this.layout = new GlyphLayout();
         this.layout.setText(font, "0", new Color(1f, 1f, 1f, 1f), 0, Align.center, false);
         this.word = new GlyphLayout();
-        this.word.setText(font, "My", new Color(.3f, .8f, 0f, 1f), 0, Align.center, false);
+        this.word.setText(font, "Fault", new Color(.3f, .8f, 0f, 1f), 0, Align.center, false);
         this.water = new WaterActor(applicationResources);
         this.winner.setTick(1);
         this.currentLevel = currentLevel;
@@ -58,7 +58,7 @@ public class LevelTwo extends Actor {
 
     private void setCurrentPhase() {
         if (currentPhase == 0) {
-            this.activePhase = new PhaseFour(applicationResources, player, water, ux, currentLevel);
+            this.activePhase = new PhaseSeven(applicationResources, player, water, ux, currentLevel);
             this.ux.addActor(activePhase);
             this.ux.addActor(water);
             if (lastPhase != null) {
@@ -66,13 +66,13 @@ public class LevelTwo extends Actor {
             }
             player.resetPosition();
         } else if (currentPhase == 1) {
-            this.activePhase = new PhaseFive(applicationResources, player, water, ux, currentLevel);
+            this.activePhase = new PhaseEight(applicationResources, player, water, ux, currentLevel);
             this.ux.addActor(activePhase);
             this.ux.addActor(water);
             this.lastPhase.remove();
             player.resetPosition();
         } else if (currentPhase == 2) {
-            this.activePhase = new PhaseSix(applicationResources, player, water, ux, currentLevel);
+            this.activePhase = new PhaseNine(applicationResources, player, water, ux, currentLevel);
             this.ux.addActor(activePhase);
             this.ux.addActor(water);
             this.lastPhase.remove();
@@ -88,7 +88,7 @@ public class LevelTwo extends Actor {
             this.layout.setText(font, "Remember This Word:", new Color(1f, 1f, 1f, 1f), 0, Align.center, false);
             nextLevel.tick(delta);
             if (nextLevel.isTimerEventReady()) {
-                applicationResources.getGlobalEntity().getComponent(LevelComponent.class).setCurrentLevel(3);
+                applicationResources.getGlobalEntity().getComponent(LevelComponent.class).setCurrentLevel(4);
                 applicationResources.getDisplay().setScreen(new DialogScreen(applicationResources));
             }
         } else if (activePhase == null) {

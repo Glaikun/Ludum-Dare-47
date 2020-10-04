@@ -12,6 +12,7 @@ import com.glaikunt.ecs.systems.AnimationSystem;
 import com.glaikunt.ecs.systems.DetectCollisionSystem;
 import com.glaikunt.game.collision.BlockActor;
 import com.glaikunt.game.levels.LevelOne;
+import com.glaikunt.game.levels.LevelThree;
 import com.glaikunt.game.levels.LevelTwo;
 import com.glaikunt.game.player.PlayerActor;
 
@@ -56,6 +57,9 @@ public class GameScreen extends Screen {
         } else if (currentLevel == 2) {
 
             getUX().addActor(new LevelTwo(getApplicationResources(), player, getFront(), currentLevel));
+        } else if (currentLevel == 3) {
+
+            getUX().addActor(new LevelThree(getApplicationResources(), player, getFront(), currentLevel));
         }
 
         getBackground().addActor(new BackgroundActor(getApplicationResources()));
