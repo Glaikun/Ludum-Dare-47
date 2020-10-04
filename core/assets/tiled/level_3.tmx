@@ -39,13 +39,13 @@
  </layer>
  <layer id="2" name="PhaseSeven" width="40" height="30" visible="0">
   <properties>
-   <property name="13;9" value="something3;false"/>
-   <property name="24;9" value="something4;false"/>
-   <property name="28;4" value="something5;true"/>
-   <property name="32;9" value="something6;false"/>
-   <property name="5;9" value="something;false"/>
-   <property name="9;4" value="something2;false"/>
-   <property name="Sentence" value="I Deserve _ _ _"/>
+   <property name="13;9" value="Attention Seeking;false"/>
+   <property name="24;9" value="Lazy;false"/>
+   <property name="28;4" value="Important;true"/>
+   <property name="32;9" value="Feel Sorry For Self;false"/>
+   <property name="5;9" value="In Your Head;false"/>
+   <property name="9;4" value="Weak;false"/>
+   <property name="Sentence" value="You are _ _ _"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -82,13 +82,13 @@
  </layer>
  <layer id="14" name="PhaseEight" width="40" height="30" visible="0">
   <properties>
-   <property name="13;9" value="something3;false"/>
-   <property name="24;9" value="something4;false"/>
-   <property name="28;4" value="something5;true"/>
-   <property name="32;9" value="something6;false"/>
-   <property name="5;9" value="something;false"/>
-   <property name="9;4" value="something2;false"/>
-   <property name="Sentence" value="I Deserve _ _ _"/>
+   <property name="13;9" value="Weak;false"/>
+   <property name="24;9" value="Choosing to Be This Way;false"/>
+   <property name="28;4" value="Toast;false"/>
+   <property name="32;9" value="Lost;false"/>
+   <property name="5;9" value="Not Alone;true"/>
+   <property name="9;4" value="Nothing;false"/>
+   <property name="Sentence" value="You are _ _ _"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -125,13 +125,13 @@
  </layer>
  <layer id="15" name="PhaseNine" width="40" height="30" visible="0">
   <properties>
-   <property name="13;9" value="something3;false"/>
-   <property name="24;9" value="something4;false"/>
-   <property name="28;4" value="something5;true"/>
-   <property name="32;9" value="something6;false"/>
-   <property name="5;9" value="something;false"/>
-   <property name="9;4" value="something2;false"/>
-   <property name="Sentence" value="I Deserve _ _ _"/>
+   <property name="13;9" value="Poo Poo Face;false"/>
+   <property name="24;9" value="Small Brain;false"/>
+   <property name="28;4" value="A Bum Rocky;false"/>
+   <property name="32;9" value="Amazing;true"/>
+   <property name="5;9" value="Bread;false"/>
+   <property name="9;4" value="GooDooBoo;false"/>
+   <property name="Sentence" value="You are _ _ _"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

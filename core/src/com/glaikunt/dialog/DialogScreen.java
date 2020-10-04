@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector3;
 import com.glaikunt.application.ApplicationResources;
 import com.glaikunt.application.Screen;
+import com.glaikunt.ecs.components.LevelComponent;
 import com.glaikunt.ecs.systems.AnimationSystem;
 import com.glaikunt.ecs.systems.DelayedTextQueueSystem;
 import com.glaikunt.ecs.systems.DelayedTextSystem;
@@ -26,6 +28,11 @@ public class DialogScreen extends Screen {
         getFront().addActor(new PlayerActor(getApplicationResources()));
         getFront().addActor(new DemonActor(getApplicationResources()));
 
+        if (getApplicationResources().getGlobalEntity().getComponent(LevelComponent.class).getCurrentLevel() == 4) {
+            getFront().addActor(new CorrectWordsActor(getApplicationResources()));
+            getFront().addActor(new WrongWordsActor(getApplicationResources()));
+        }
+
         getEngine().addSystem(new AnimationSystem(getEngine()));
         getEngine().addSystem(new DelayedTextQueueSystem(getEngine()));
         getEngine().addSystem(new DelayedTextSystem(getEngine()));
@@ -42,6 +49,8 @@ public class DialogScreen extends Screen {
             getFront().act();
             getUX().act();
         }
+
+        getApplicationResources().getFrontStageMousePosition().set(getFront().getCamera().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0)));
 
         getBackground().draw();
         getFront().draw();

@@ -49,7 +49,7 @@ public class LevelTwo extends Actor {
         this.layout = new GlyphLayout();
         this.layout.setText(font, "0", new Color(1f, 1f, 1f, 1f), 0, Align.center, false);
         this.word = new GlyphLayout();
-        this.word.setText(font, "My", new Color(.3f, .8f, 0f, 1f), 0, Align.center, false);
+        this.word.setText(font, "Your", new Color(.3f, .8f, 0f, 1f), 0, Align.center, false);
         this.water = new WaterActor(applicationResources);
         this.winner.setTick(1);
         this.currentLevel = currentLevel;

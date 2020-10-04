@@ -40,10 +40,10 @@
  <layer id="2" name="PhaseFour" width="40" height="30" visible="0">
   <properties>
    <property name="14;8" value="Nothing;false"/>
-   <property name="24;8" value="Worse;false"/>
-   <property name="30;12" value="Love;true"/>
-   <property name="8;12" value="Failure;false"/>
-   <property name="Sentence" value="I Deserve _ _ _"/>
+   <property name="24;8" value="The Worst;false"/>
+   <property name="30;12" value="Pointless;true"/>
+   <property name="8;12" value="Loved;false"/>
+   <property name="Sentence" value="I am  _ _ _"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -80,11 +80,11 @@
  </layer>
  <layer id="12" name="PhaseFive" width="40" height="30" visible="0">
   <properties>
-   <property name="14;8" value="Nothing;false"/>
-   <property name="24;8" value="Worse;false"/>
-   <property name="30;12" value="Love;true"/>
-   <property name="8;12" value="Failure;false"/>
-   <property name="Sentence" value="I Deserve _ _ _"/>
+   <property name="14;8" value="Weak;false"/>
+   <property name="24;8" value="Strong;false"/>
+   <property name="30;12" value="Lost;true"/>
+   <property name="8;12" value="Dramatic;false"/>
+   <property name="Sentence" value="I am _ _ _"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -121,11 +121,11 @@
  </layer>
  <layer id="13" name="PhaseSix" width="40" height="30" visible="0">
   <properties>
-   <property name="14;8" value="Nothing;false"/>
-   <property name="24;8" value="Worse;false"/>
-   <property name="30;12" value="Love;true"/>
-   <property name="8;12" value="Failure;false"/>
-   <property name="Sentence" value="I Deserve _ _ _"/>
+   <property name="14;8" value="Beautiful;false"/>
+   <property name="24;8" value="Pointless;false"/>
+   <property name="30;12" value="Waste;true"/>
+   <property name="8;12" value="Bad;false"/>
+   <property name="Sentence" value="I am _ _ _"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
