@@ -1,6 +1,7 @@
 package com.glaikunt.application.cache;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -11,14 +12,12 @@ public class SoundCache implements Cache {
 
     public static final String music = "music.wav";
 
-    private Map<String, Sound> sounds = new HashMap<>();
+    private Map<String, Music> sounds = new HashMap<>();
     private boolean loaded = false;
 
     @Override
     public void loadCache(AssetManager assetManager) {
 
-        assetManager.load(music, Sound.class);
-        getSounds().put(music, null);
     }
 
     @Override
@@ -33,7 +32,7 @@ public class SoundCache implements Cache {
 
         if (!isLoaded()) {
             for (String key : sounds.keySet()) {
-                getSounds().put(key, (Sound) assetManager.get(key));
+                getSounds().put(key, (Music) assetManager.get(key));
             }
             setLoaded(true);
         }
@@ -49,7 +48,7 @@ public class SoundCache implements Cache {
         return loaded;
     }
 
-    public Map<String, Sound> getSounds() {
+    public Map<String, Music> getSounds() {
         return sounds;
     }
 }

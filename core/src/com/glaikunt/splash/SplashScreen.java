@@ -1,5 +1,6 @@
 package com.glaikunt.splash;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.glaikunt.application.ApplicationResources;
 import com.glaikunt.application.Screen;
@@ -18,9 +19,6 @@ public class SplashScreen extends Screen {
 
         if (getApplicationResources().getCacheRetriever().isCacheLoaded()) {
             getDisplay().setScreen(new DialogScreen(getApplicationResources()));
-            Sound sound = getApplicationResources().getCacheRetriever().getSoundCache().getSounds().get(SoundCache.music);
-            sound.loop(.5f);
-//            getDisplay().setScreen(new GameScreen(getApplicationResources()));
         } else {
 
             getApplicationResources().getCacheRetriever().update();
